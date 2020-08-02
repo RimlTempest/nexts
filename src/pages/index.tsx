@@ -31,16 +31,16 @@ class IndexPage extends React.Component<
 > {
   constructor(props: Props & WithStyles<typeof styles>) {
     super(props);
+    this.state = {
+      test: "Nexts",
+      count: 1,
+    };
   }
 
-  public state = {
-    test: "Nexts",
-    count: 1,
-  };
-
   public handleIncriment = () => {
+    let cnt: number = this.state.count;
     this.setState({
-      count: ++this.state.count,
+      count: ++cnt,
     });
   };
 
