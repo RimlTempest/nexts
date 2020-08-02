@@ -1,15 +1,74 @@
-import Link from 'next/link'
-import Layout from '../components/Layout'
+import React from "react";
+import Link from "next/link";
+import {
+  createStyles,
+  Theme,
+  WithStyles,
+  withStyles,
+  Button,
+} from "@material-ui/core";
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </p>
-  </Layout>
-)
+function styles(theme: Theme) {
+  return createStyles({
+    root: {
+      paddingTop: theme.spacing(1),
+    },
+  });
+}
 
-export default IndexPage
+type Props = {
+  classes: any;
+};
+
+type State = {
+  test: string;
+  count: number;
+};
+
+class IndexPage extends React.Component<
+  Props & WithStyles<typeof styles>,
+  State
+> {
+  constructor(props: Props & WithStyles<typeof styles>) {
+    super(props);
+  }
+
+  public state = {
+    test: "Nexts",
+    count: 1,
+  };
+
+  public handleIncriment = () => {
+    this.setState({
+      count: ++this.state.count,
+    });
+  };
+
+  // ライフサイクル
+  shouldComponentUpdate(_nextProps: any, _nextState: any): boolean {
+    console.log("shouldComponentUpdate");
+    return true;
+  }
+
+  public render() {
+    const { classes } = this.props;
+    const { test, count } = this.state;
+
+    return (
+      <div className={classes.root}>
+        <h1>
+          Hello {test} 👋 {count}
+        </h1>
+        <p>
+          <Link href="/about">
+            <a>About</a>
+          </Link>
+        </p>
+        <Button color="primary" onClick={this.handleIncriment}>
+          State Test!
+        </Button>
+      </div>
+    );
+  }
+}
+export default withStyles(styles)(IndexPage);
