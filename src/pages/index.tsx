@@ -17,7 +17,9 @@ function styles(theme: Theme) {
 }
 
 type Props = {
-  classes: any;
+  classes: {
+    root: any;
+  };
 };
 
 type State = {
